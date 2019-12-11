@@ -27,16 +27,21 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
+    
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product)
 
     respond_to do |format|
-      if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: 'Item added to cart.' }
-        format.json { render :show, status: :created, location: @line_item }
+      if current_user
+        if @line_item.save
+          format.html { redirect_to @line_item.cart, notice: 'Item added to cart.' }
+          format.json { render :show, status: :created, location: @line_item }
+        else
+          format.html { render :new }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_user_session_path, notice: 'Please sign in or sign up to purchase a product.' }
       end
     end
   end

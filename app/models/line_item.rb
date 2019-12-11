@@ -5,4 +5,9 @@ class LineItem < ApplicationRecord
   def total_price
     product.price.to_i * quantity.to_i
   end
+
+  def cart_user 
+    user = User.find_by_id self.cart_id
+    user.email
+  end
 end
