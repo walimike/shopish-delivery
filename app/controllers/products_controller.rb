@@ -60,8 +60,13 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
+      if LineItem.find_by_product_id @product.id
+        format.html { redirect_to products_url, notice: 'Can not delete a product that has already been ordered.' }
+        format.json { head :no_content }
+      else        
+        format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+        format.json { head :no_content }
+      end    
     end
   end
 
