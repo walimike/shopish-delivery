@@ -19,7 +19,7 @@
         <%= link_to 'Admin Panel', line_items_path, class: "navbar-item button " %>
       <% end %>
 
-      <% if total_cart_items %>
+      <% if total_cart_items && !current_user.admin%>
         <%= link_to cart_path(@cart), class:"navbar-item button is-warning" do %>
         <span class="icon is-small">
           <i class="fa fa-shopping-cart"></i>
