@@ -7,7 +7,7 @@ class LineItem < ApplicationRecord
   end
 
   def cart_user 
-    user = User.find_by_id self.cart_id
+    user = User.find_by_id self.cart.user_id
     user.email
   end
 end

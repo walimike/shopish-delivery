@@ -29,10 +29,10 @@ class LineItemsController < ApplicationController
   def create
     
     product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product)
 
     respond_to do |format|
       if current_user
+        @line_item = @cart.add_product(product)
         if @line_item.save
           format.html { redirect_to @line_item.cart, notice: 'Item added to cart.' }
           format.json { render :show, status: :created, location: @line_item }
