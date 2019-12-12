@@ -17,7 +17,10 @@
   <div class="instrument-index-grid pt4">
     <% @products.each do |product| %>
   
-     
+      <div class="instrument border-light">
+        <div class="instrument-thumb">
+        <%= link_to image_tag(url_for(product.product_image)), product %>
+        </div>
   
   
       <div class="pa3">
